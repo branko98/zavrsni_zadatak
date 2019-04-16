@@ -5,22 +5,6 @@ error_reporting(E_ALL);
 
 include("db.php"); 
 
-if($_POST){
-    $author = $_POST['author'];
-    $comment = $_POST['comment'];
-    $id = $_GET['post_id'];
-
-    var_dump($id);
-
-    $sqlInsert = "INSERT INTO comments (author, text, post_id) VALUES ({$author}, {$comment}, {$id})";
-
-    $statementInsert = $connection->prepare($sqlInsert);
-
-    $statementInsert->execute();
-
-    $statementInsert->setFetchMode(PDO::FETCH_ASSOC);
-
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -75,9 +59,10 @@ if($_POST){
                 <p><?php echo ($singlePost['body']); ?></p>
             </div><!-- /.blog-post -->
 
-            <form method="POST" action="single-post.php?post_id=<?php echo($singlePost['id']) ?>" >
+            <form method="POST" action="create-comment.php" >
                 <input name="author" type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
                 <textarea name="comment" rows="5" cols="70" placeholder="Comment" style="display:block; margin-bottom:1rem"></textarea>
+                <input type="hidden" value="$_GET['post_id']" name="id"/>
                 <input class="btn btn-default" type="submit" value="Submit">
             </form>
 
