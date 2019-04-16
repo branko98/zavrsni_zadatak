@@ -1,3 +1,20 @@
+<?php
+    $sql = "SELECT posts.id, posts.title, posts.created_at, posts.author, posts.body
+    FROM posts ORDER BY created_at";
+
+    $statement = $connection->prepare($sql);
+
+    $statement->execute();
+
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+    $posts = $statement->fetchAll();
+
+    echo '<pre>';
+    var_dump($posts);
+    echo '</pre>';
+?>
+
 <div class="blog-post">
                 <a href= "#"><h2 class="blog-post-title">Sample blog post</h2></a>
                 <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
