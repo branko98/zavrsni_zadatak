@@ -3,7 +3,25 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include("db.php"); ?>
+include("db.php"); 
+
+if($_POST){
+    $author = $_POST['author'];
+    $comment = $_POST['comment'];
+    $id = $_GET['post_id'];
+
+    var_dump($id);
+
+    $sqlInsert = "INSERT INTO comments (author, text, post_id) VALUES ({$author}, {$comment}, {$id})";
+
+    $statementInsert = $connection->prepare($sqlInsert);
+
+    $statementInsert->execute();
+
+    $statementInsert->setFetchMode(PDO::FETCH_ASSOC);
+
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,6 +44,8 @@ include("db.php"); ?>
 </head>
 
 <?php
+
+
     $sql = "SELECT posts.id, posts.title, posts.created_at, posts.author, posts.body
     FROM posts WHERE posts.id = {$_GET['post_id']} ";
 
@@ -36,7 +56,6 @@ include("db.php"); ?>
     $statement->setFetchMode(PDO::FETCH_ASSOC);
 
     $singlePost = $statement->fetchAll()[0];
-
 ?>
 
 <body>
@@ -56,9 +75,9 @@ include("db.php"); ?>
                 <p><?php echo ($singlePost['body']); ?></p>
             </div><!-- /.blog-post -->
 
-            <form method="POST" action="index.php" >
-                <input type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem">
-                <textarea rows="5" cols="70" placeholder="Comment" style="display:block; margin-bottom:1rem"></textarea>
+            <form method="POST" action="single-post.php?post_id=<?php echo($singlePost['id']) ?>" >
+                <input name="author" type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
+                <textarea name="comment" rows="5" cols="70" placeholder="Comment" style="display:block; margin-bottom:1rem"></textarea>
                 <input class="btn btn-default" type="submit" value="Submit">
             </form>
 
