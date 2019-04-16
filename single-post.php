@@ -54,11 +54,11 @@ include("db.php"); ?>
                 <p class="blog-post-meta"><?php echo ($singlePost['created_at']); ?> by <a href="#"><?php echo ($singlePost['author']); ?></a></p>
 
                 <p><?php echo ($singlePost['body']); ?></p>
-        </div><!-- /.blog-post -->
+            </div><!-- /.blog-post -->
+            <?php include('comments.php'); ?>
+        </div><!-- /.blog-main -->
 
-</div><!-- /.blog-main -->
-
-<?php include('sidebar.php'); ?><!-- /.blog-sidebar -->
+        <?php include('sidebar.php'); ?><!-- /.blog-sidebar -->
 
     </div><!-- /.row -->
 
