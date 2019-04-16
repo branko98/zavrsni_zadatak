@@ -1,3 +1,9 @@
+<?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include("db.php"); ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,6 +25,20 @@
 
 </head>
 
+<?php
+    $sql = "SELECT posts.id, posts.title, posts.created_at, posts.author, posts.body
+    FROM posts WHERE posts.id = {$_GET['post_id']} ";
+
+    $statement = $connection->prepare($sql);
+
+    $statement->execute();
+
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+    $singlePost = $statement->fetchAll()[0];
+
+?>
+
 <body>
 
 <?php include("header.php"); ?>
@@ -29,12 +49,12 @@
 
         <div class="col-sm-8 blog-main">
 
-            <?php include('posts.php'); ?>
+            <div class="blog-post">
+                <a href= "single-post.php?post_id=<?php echo($singlePost['id']) ?>"><h2 class="blog-post-title"><?php echo ($singlePost['title']); ?></h2></a>
+                <p class="blog-post-meta"><?php echo ($singlePost['created_at']); ?> by <a href="#"><?php echo ($singlePost['author']); ?></a></p>
 
-            <nav class="blog-pagination">
-                <a class="btn btn-outline-primary" href="#">Older</a>
-                <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-            </nav>
+                <p><?php echo ($singlePost['body']); ?></p>
+        </div><!-- /.blog-post -->
 
 </div><!-- /.blog-main -->
 
