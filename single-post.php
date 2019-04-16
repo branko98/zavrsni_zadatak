@@ -55,6 +55,14 @@ include("db.php"); ?>
 
                 <p><?php echo ($singlePost['body']); ?></p>
             </div><!-- /.blog-post -->
+
+            <form method="POST" action="index.php" >
+                <input type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem">
+                <textarea rows="5" cols="70" placeholder="Comment" style="display:block; margin-bottom:1rem"></textarea>
+                <input class="btn btn-default" type="submit" value="Submit">
+            </form>
+
+            <hr>
             <?php include('comments.php'); ?>
         </div><!-- /.blog-main -->
 
