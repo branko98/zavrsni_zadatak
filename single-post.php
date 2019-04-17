@@ -59,9 +59,19 @@ include("db.php");
                 <p><?php echo ($singlePost['body']); ?></p>
             </div><!-- /.blog-post -->
 
+            <?php
+                $error = '';
+                if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['required'])) {
+                    $error = "All field are required";
+                }
+            ?>
             <form method="POST" action="create-comment.php" >
-                <input name="author" type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
-                <textarea name="comment" rows="5" cols="70" placeholder="Comment" style="display:block; margin-bottom:1rem"></textarea>
+                <?php if (!empty($error)) {?>
+                    <span class="alert alert-danger"><?php echo $error ; ?></span>
+                    <hr/>
+                <?php } ?>
+                <input id="author" name="author" type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
+                <textarea id="comment" name="comment" rows="5" cols="70" placeholder="Comment" style="display:block; margin-bottom:1rem"></textarea>
                 <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
                 <input class="btn btn-default" type="submit" value="Submit">
             </form>
