@@ -65,8 +65,23 @@ include("db.php");
                     $error = "All field are required";
                 }
             ?>
+            <form method="GET" action="delete-post.php" name="deletePostForm">
+                <button id="delete" class="btn btn-primary" onclick="confirmDelete()">Delete this post</button>
+                <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
+            </form>
+
+        <script>
+            document.getElementById("delete").addEventListener("click", function(event){
+                event.preventDefault()
+                if(window.confirm("Do you really want to delete this post?")){
+                    document.deletePostForm.submit();
+                }
+            });
+        </script>
+        </script>
+        <br/    >
             <form method="POST" action="create-comment.php" >
-                <?php if (!empty($error)) {?>
+                <?php if (!empty($error) && $error !== "false") {?>
                     <span class="alert alert-danger"><?php echo $error ; ?></span>
                     <hr/>
                 <?php } ?>
@@ -75,6 +90,7 @@ include("db.php");
                 <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
                 <input class="btn btn-default" type="submit" value="Submit">
             </form>
+            
 
             <hr>
             <?php include('comments.php'); ?>
