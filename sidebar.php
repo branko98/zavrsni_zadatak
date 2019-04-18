@@ -1,5 +1,5 @@
 <?php
-    $sql = "SELECT posts.id, posts.title, posts.created_at, posts.author, posts.body
+    $sql = "SELECT posts.id, posts.title, posts.created_at, posts.body
     FROM posts ORDER BY created_at DESC 
     LIMIT 5";
 

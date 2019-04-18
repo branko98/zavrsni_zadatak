@@ -1,6 +1,6 @@
 <?php
-    $sql = "SELECT posts.id, posts.title, posts.created_at, posts.author, posts.body
-    FROM posts ORDER BY created_at DESC";
+    $sql = "SELECT posts.id, posts.title, posts.created_at, posts.body, users.First_Name, users.Last_Name
+    FROM posts JOIN users ON posts.user_id = users.id ORDER BY created_at DESC";
 
     $statement = $connection->prepare($sql);
 
@@ -10,11 +10,12 @@
 
     $posts = $statement->fetchAll();
 ?>
-<?php foreach($posts as $post){ ;?>
+<?php foreach($posts as $post){  ; ?>
+
 
     <div class="blog-post">
         <a href= "single-post.php?post_id=<?php echo($post['id']) ?>"><h2 class="blog-post-title"><?php echo ($post['title']); ?></h2></a>
-        <p class="blog-post-meta"><?php echo ($post['created_at']); ?> by <a href="#"><?php echo ($post['author']); ?></a></p>
+        <p class="blog-post-meta"><?php echo ($post['created_at']); ?> by <a href="#"><?php echo $post['First_Name']." ". $post['Last_Name']; ?></a></p>
 
         <p><?php echo ($post['body']); ?></p>
     </div><!-- /.blog-post -->

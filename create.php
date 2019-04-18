@@ -40,7 +40,8 @@
                     <span class="alert alert-danger"><?php echo $error ; ?></span>
                     <hr/>
                 <?php } ?>
-                <input id="author" name="author" type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
+                <input id="author" name="First_Name" type="text" placeholder="First name" style="margin-bottom:1rem; padding:0.5rem"/>
+                <input id="author" name="Last_Name" type="text" placeholder="Last name" style="margin-bottom:1rem; padding:0.5rem"/>
                 <input id="author" name="title" type="text" placeholder="Title" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
                 <textarea id="body" name="body" rows="5" cols="70" placeholder="Text" style="display:block; margin-bottom:1rem"></textarea>
                 <input class="btn btn-default" type="submit" value="Submit">

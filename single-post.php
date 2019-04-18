@@ -29,9 +29,9 @@ include("db.php");
 
 <?php
 
-
-    $sql = "SELECT posts.id, posts.title, posts.created_at, posts.author, posts.body
-    FROM posts WHERE posts.id = {$_GET['post_id']} ";
+    $postId = $_GET['post_id'];
+    $sql = "SELECT posts.id as id, posts.title as title, posts.created_at as created_at, posts.body as body, users.First_Name as First_Name, users.Last_Name as Last_Name
+    FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = {$postId};";
 
     $statement = $connection->prepare($sql);
 
@@ -54,7 +54,7 @@ include("db.php");
 
             <div class="blog-post">
                 <a href= "single-post.php?post_id=<?php echo($singlePost['id']) ?>"><h2 class="blog-post-title"><?php echo ($singlePost['title']); ?></h2></a>
-                <p class="blog-post-meta"><?php echo ($singlePost['created_at']); ?> by <a href="#"><?php echo ($singlePost['author']); ?></a></p>
+                <p class="blog-post-meta"><?php echo ($singlePost['created_at']); ?> by <a href="#"><?php echo ($singlePost['First_Name']). " ". ($singlePost['Last_Name']); ?></a></p>
 
                 <p><?php echo ($singlePost['body']); ?></p>
             </div><!-- /.blog-post -->
@@ -78,8 +78,7 @@ include("db.php");
                 }
             });
         </script>
-        </script>
-        <br/    >
+        <br/>
             <form method="POST" action="create-comment.php" >
                 <?php if (!empty($error) && $error !== "false") {?>
                     <span class="alert alert-danger"><?php echo $error ; ?></span>

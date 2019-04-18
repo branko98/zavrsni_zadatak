@@ -19,7 +19,7 @@ $statementComments->setFetchMode(PDO::FETCH_ASSOC);
 $comments = $statementComments->fetchAll();
 
 ?>
-<button class="btn btn-default" onclick="delete()" id="button" onclick="myFunction()">Hide Comments</button>
+<button class="btn btn-default"  id="button" onclick="myFunction()">Hide Comments</button>
 
 
 
@@ -45,7 +45,6 @@ $comments = $statementComments->fetchAll();
     var button = document.getElementById('button')
     function myFunction(){
         
-
         if(button.innerHTML == "Show Comments"){
             comments.classList.remove("hide")
             button.innerHTML = "Hide Comments"
